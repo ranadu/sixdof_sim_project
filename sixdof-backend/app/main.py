@@ -12,13 +12,21 @@ from app.routes.run import router as run_router
 setup_logging()
 
 app = FastAPI(title=settings.app_name, version=settings.version)
+
 @app.get("/")
 def home():
     return {
         "status": "ok",
         "message": "6DOF backend is live",
-        "try": ["/health", "/meta", "/docs", "/api/v1/run"],
+        "try": ["/health", "/meta", "/docs", "/api/v1/run", "/routes"],
     }
+
+@app.get("/routes")
+def routes():
+    return [
+        {"path": r.path, "name": r.name, "methods": sorted(list(r.methods or []))}
+        for r in app.router.routes
+    ]
 
 # CORS (lock this to your Vercel domain later)
 origins = [o.strip() for o in settings.allowed_origins.split(",")] if settings.allowed_origins else ["*"]
