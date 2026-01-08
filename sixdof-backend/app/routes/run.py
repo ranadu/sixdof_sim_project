@@ -1,44 +1,3 @@
-# from __future__ import annotations
-
-# from fastapi import APIRouter, HTTPException
-# from pydantic import BaseModel, Field
-# from typing import Any, Dict, Literal
-
-# router = APIRouter(prefix="/api/v1", tags=["api"])
-
-
-# class RunRequest(BaseModel):
-#     task: str = Field(..., description="Task name (e.g., 'sixdof_simulate')")
-#     payload: Dict[str, Any] = Field(default_factory=dict)
-#     mode: Literal["sync"] = "sync"
-
-
-# class RunResponse(BaseModel):
-#     ok: bool
-#     task: str
-#     result: Dict[str, Any]
-
-
-# @router.post("/run", response_model=RunResponse)
-# def run(req: RunRequest) -> RunResponse:
-#     # Template mode: backend is deployable even before you plug in the sim core
-#     if req.task == "sixdof_simulate":
-#         raise HTTPException(
-#             status_code=501,
-#             detail="sixdof_simulate not installed yet. Add src/sixdof_sim then redeploy.",
-#         )
-
-#     return RunResponse(
-#         ok=True,
-#         task=req.task,
-#         result={
-#             "echo": req.payload,
-#             "message": f"Template backend is live. Task '{req.task}' executed (echo only).",
-#         },
-#     )
-
-
-
 from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException
@@ -175,3 +134,44 @@ def run(req: RunRequest) -> RunResponse:
     }
 
     return RunResponse(ok=True, task=req.task, result=result)
+
+
+
+# from __future__ import annotations
+
+# from fastapi import APIRouter, HTTPException
+# from pydantic import BaseModel, Field
+# from typing import Any, Dict, Literal
+
+# router = APIRouter(prefix="/api/v1", tags=["api"])
+
+
+# class RunRequest(BaseModel):
+#     task: str = Field(..., description="Task name (e.g., 'sixdof_simulate')")
+#     payload: Dict[str, Any] = Field(default_factory=dict)
+#     mode: Literal["sync"] = "sync"
+
+
+# class RunResponse(BaseModel):
+#     ok: bool
+#     task: str
+#     result: Dict[str, Any]
+
+
+# @router.post("/run", response_model=RunResponse)
+# def run(req: RunRequest) -> RunResponse:
+#     # Template mode: backend is deployable even before you plug in the sim core
+#     if req.task == "sixdof_simulate":
+#         raise HTTPException(
+#             status_code=501,
+#             detail="sixdof_simulate not installed yet. Add src/sixdof_sim then redeploy.",
+#         )
+
+#     return RunResponse(
+#         ok=True,
+#         task=req.task,
+#         result={
+#             "echo": req.payload,
+#             "message": f"Template backend is live. Task '{req.task}' executed (echo only).",
+#         },
+#     )
